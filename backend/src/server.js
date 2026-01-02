@@ -23,10 +23,11 @@ app.use(express.urlencoded({ extended: false }));
 // }));
 app.use(cors({
   origin: [
-    "http://localhost:3000",
-    "http://localhost:5173", 
-    "https://jobflow-india.vercel.app" // Your ACTUAL Vercel URL
-  ],
+      "http://localhost:3000",
+      "http://localhost:5173",
+      "https://jobflow-india.vercel.app",   // The one you have now
+      "https://job-flow-india.vercel.app"   // <--- ADD THIS ONE (The one from the error log)
+    ],
   credentials: true
 }));
 
