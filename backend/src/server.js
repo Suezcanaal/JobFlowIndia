@@ -17,8 +17,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // CORS middleware
+// app.use(cors({
+//   origin: process.env.NODE_ENV === 'production' ? 'https://your-frontend-domain.com' : 'http://localhost:3000',
+//   credentials: true
+// }));
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' ? 'https://your-frontend-domain.com' : 'http://localhost:3000',
+  origin: [
+    "http://localhost:3000",
+    "http://localhost:5173", 
+    "https://jobflow-india.vercel.app" // Your ACTUAL Vercel URL
+  ],
   credentials: true
 }));
 
