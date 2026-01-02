@@ -37,7 +37,11 @@ const registerUser = async (req, res) => {
     });
 
     // Enable email sending with proper credentials
-    await sendOTP(email, otp);
+    try {
+      await sendOTP(email, otp);
+    } catch (e) {
+      console.error("Email failed:", e.message);
+    }
 
     res.status(201).json({
       message: 'Registration successful. Please check your email for verification code.',
