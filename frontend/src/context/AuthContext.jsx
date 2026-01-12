@@ -3,6 +3,7 @@ import { authApi } from '../api/authApi';
 import toast from 'react-hot-toast';
 
 const AuthContext = createContext();
+export { AuthContext }; // <-- add this
 
 const initialState = {
   user: null,
@@ -10,6 +11,7 @@ const initialState = {
   loading: true,
   error: null
 };
+
 
 const authReducer = (state, action) => {
   switch (action.type) {

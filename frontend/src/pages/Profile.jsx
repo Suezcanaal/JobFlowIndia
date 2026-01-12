@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import { userApi } from '../api/userApi';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
@@ -8,6 +9,8 @@ import toast from 'react-hot-toast';
 
 const Profile = () => {
   const { user } = useAuth();
+  const { logout } = useAuth();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: user?.name || '',
@@ -221,6 +224,17 @@ const Profile = () => {
             <span className="text-gray-600">Account ID:</span>
             <span className="font-mono text-xs">{user?._id}</span>
           </div>
+        </div>
+        <div className="flex justify-end mt-4">
+          <Button
+            onClick={() => {
+              logout();
+              navigate('/login');
+            }}
+            className="bg-red-500 hover:bg-red-600"
+          >
+            Logout
+          </Button>
         </div>
       </Card>
     </div>

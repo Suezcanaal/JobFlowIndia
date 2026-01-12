@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import GoogleLogin from '../components/GoogleLogin';
 import OTPVerification from '../components/OTPVerification';
 
 const Register = () => {
@@ -15,7 +14,7 @@ const Register = () => {
   const [showOTP, setShowOTP] = useState(false);
   const [userId, setUserId] = useState(null);
   
-  const { register, loading, googleLogin } = useAuth();
+  const { register, loading } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -74,14 +73,6 @@ const Register = () => {
     }
   };
 
-  const handleGoogleSuccess = async (googleData) => {
-    try {
-      await googleLogin(googleData);
-      navigate('/dashboard');
-    } catch (err) {
-      setErrors({ general: 'Google login failed' });
-    }
-  };
 
   if (showOTP) {
     return <OTPVerification userId={userId} email={formData.email} />;
@@ -342,7 +333,7 @@ const Register = () => {
               {loading ? 'Creating Account...' : 'Create Account'}
             </button>
 
-            <GoogleLogin onSuccess={handleGoogleSuccess} />
+            {/* Google login removed - email/password only */}
           </form>
         </div>
 

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import GoogleLogin from '../components/GoogleLogin';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -10,7 +9,7 @@ const Login = () => {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login, googleLogin } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -32,15 +31,6 @@ const Login = () => {
       setError(err.response?.data?.message || 'Login failed');
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleGoogleSuccess = async (googleData) => {
-    try {
-      await googleLogin(googleData);
-      navigate('/dashboard');
-    } catch (err) {
-      setError('Google login failed');
     }
   };
 
@@ -212,8 +202,6 @@ const Login = () => {
             >
               {loading ? 'Signing In...' : 'Sign In'}
             </button>
-
-            <GoogleLogin onSuccess={handleGoogleSuccess} />
           </form>
         </div>
 
