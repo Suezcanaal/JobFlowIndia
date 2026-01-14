@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import DashboardLayout from '../layouts/DashboardLayout';
+// import DashboardLayout from '../layouts/DashboardLayout';
 import StatCard from '../components/StatCard';
 import { Briefcase, Calendar, Clock, Award, MoreVertical, FolderOpen } from 'lucide-react';
 import { useJobs } from '../context/JobContext';
+import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 const StatusBadge = ({ status }) => {
@@ -18,6 +19,8 @@ const StatusBadge = ({ status }) => {
 
 const Dashboard = () => {
   const { jobs, fetchJobs, stats, fetchStats, loading } = useJobs();
+  const { user, loading: authLoading } = useAuth();
+  const displayName = user?.name || user?.firstName || 'User';
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,12 +30,12 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <DashboardLayout>
+    
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
         {/* Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
           <div>
-            <h1 style={{ fontSize: 24, fontWeight: 800, color: 'var(--text-primary)' }}>Welcome back, Harsh! 👋</h1>
+            <h1 style={{ fontSize: 24, fontWeight: 800, color: 'var(--text-primary)' }}>Welcome back, {displayName}! 👋</h1>
             <div style={{ color: 'var(--text-secondary)', marginTop: 6 }}>Here’s what’s happening with your job search.</div>
           </div>
 
@@ -105,7 +108,7 @@ const Dashboard = () => {
           )}
         </div>
       </div>
-    </DashboardLayout>
+    
   );
 };
 

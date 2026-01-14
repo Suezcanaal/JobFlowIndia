@@ -2,7 +2,9 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import PrivateRoute from './PrivateRoute';
-import PageWrapper from '../components/layout/PageWrapper';
+
+// Import the NEW Layout we created
+import DashboardLayout from '../layouts/DashboardLayout';
 
 // Pages
 import Landing from '../pages/Landing';
@@ -21,62 +23,30 @@ const AppRouter = () => {
 
   return (
     <Routes>
-      {/* Public routes */}
+      {/* --- Public Routes --- */}
       <Route path="/" element={user ? <Navigate to="/dashboard" /> : <Landing />} />
       <Route path="/login" element={user ? <Navigate to="/dashboard" /> : <Login />} />
       <Route path="/register" element={user ? <Navigate to="/dashboard" /> : <Register />} />
       <Route path="/auth/google/callback" element={<GoogleCallback />} />
 
-      {/* Private routes */}
-      <Route path="/dashboard" element={
+      {/* --- Private Dashboard Routes --- */}
+      {/* This is the "Layout Route". 
+          It renders the Sidebar + Navbar once, and changes the content inside.
+      */}
+      <Route element={
         <PrivateRoute>
-          <PageWrapper>
-            <Dashboard />
-          </PageWrapper>
+          <DashboardLayout /> 
         </PrivateRoute>
-      } />
-      
-      <Route path="/jobs" element={
-        <PrivateRoute>
-          <PageWrapper>
-            <JobsList />
-          </PageWrapper>
-        </PrivateRoute>
-      } />
-      
-      <Route path="/jobs/new" element={
-        <PrivateRoute>
-          <PageWrapper>
-            <JobForm />
-          </PageWrapper>
-        </PrivateRoute>
-      } />
-      
-      <Route path="/jobs/:id/edit" element={
-        <PrivateRoute>
-          <PageWrapper>
-            <JobForm />
-          </PageWrapper>
-        </PrivateRoute>
-      } />
-      
-      <Route path="/profile" element={
-        <PrivateRoute>
-          <PageWrapper>
-            <Profile />
-          </PageWrapper>
-        </PrivateRoute>
-      } />
-      
-      <Route path="/settings" element={
-        <PrivateRoute>
-          <PageWrapper>
-            <Settings />
-          </PageWrapper>
-        </PrivateRoute>
-      } />
+      }>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/jobs" element={<JobsList />} />
+        <Route path="/jobs/new" element={<JobForm />} />
+        <Route path="/jobs/:id/edit" element={<JobForm />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/settings" element={<Settings />} />
+      </Route>
 
-      {/* 404 */}
+      {/* --- 404 Route --- */}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

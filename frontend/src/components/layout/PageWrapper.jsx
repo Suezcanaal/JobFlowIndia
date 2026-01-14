@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 
 const PageWrapper = ({ children }) => {
@@ -10,7 +9,7 @@ const PageWrapper = ({ children }) => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-black transition-colors">
-      <Navbar onToggleSidebar={toggleSidebar} />
+      {/* Navbar removed intentionally */}
       
       <div className="flex">
         <Sidebar isOpen={sidebarOpen} onClose={closeSidebar} />

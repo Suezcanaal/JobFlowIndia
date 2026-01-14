@@ -1,3 +1,5 @@
+// DEPRECATED: This Navbar is unused. The app uses `components/layout/Navbar.jsx`.
+// You can safely delete this file to avoid confusion.
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
